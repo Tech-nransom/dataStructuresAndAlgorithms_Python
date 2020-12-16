@@ -68,6 +68,53 @@ class linkedList:
 			print("Insert is not in Middle")
 			return
 
+	def delete_start(self):
+		itr = self.head
+		self.head = itr.next
+		del itr
+
+	def delete_mid(self,position):
+		if 1<position<self.get_length():
+
+			itr = self.head
+			cnt = 1
+			while cnt!= position-1:
+				cnt += 1
+				itr = itr.next
+			itr.next = itr.next.next
+		else:
+			print("Deletion is not in the middle")
+			return
+
+	def delete_end(self):
+		if self.get_length() == -1:
+			print("linkedList is empty")
+			return
+
+		itr = self.head
+		cnt = 1
+		while cnt != self.get_length()-1:
+			try:
+				itr = itr.next
+				cnt += 1
+			except :
+				print("Already At head")
+				return
+		itr.next = None
+
+	def search(self,data):
+		itr = self.head
+		position = 1
+		while position != self.get_length()+1:
+			if itr.data == data:
+				return position
+			itr = itr.next
+			position += 1
+		return -1
+
+
+
+
 if __name__ == "__main__":
 
 	ll = linkedList()
@@ -89,4 +136,16 @@ if __name__ == "__main__":
 	ll.display()
 	ll.insert_after(55,5)
 	ll.display()
+	ll.delete_start()
+	ll.display()
+	ll.delete_start()
+	ll.display()
+	ll.insert_beg(90)
+	ll.display()
+	ll.delete_mid(3)
+	ll.display()
+	ll.delete_end()
+	ll.display()
+	print("Element found at position %d" % ll.search(99))
+	print("Element found at position %d" % ll.search(40))
 	print("The Length of the linkedList currently is "+str(ll.get_length()))
