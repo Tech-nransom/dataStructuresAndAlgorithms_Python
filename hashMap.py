@@ -11,18 +11,19 @@ class hashMap:
 			val += ord(char)
 		return val % 100
 
-	def add(self,string,value):
+	def __setitem__(self,string,value):
 		val = self.getHash(string)
 		self.hash[val] =  value
 
-	def get(self,string):
+	def __getitem__(self,string):
 		val = self.getHash(string)
 		return self.hash[val]
 
 
 if __name__ == "__main__":
-	hashmap = hashMap()
-	print(hashmap.getHash("hello"))
-	print(hashmap.getHash("randomString"))
-	hashmap.add("hello",101010)
-	print(hashmap.get("hello"))
+	hm = hashMap()
+	print(hm.getHash("hello"))
+	print(hm.getHash("randomString"))
+	hm["hello"] = 1010
+	print(hm["404"])
+	print(hm["hello"])
