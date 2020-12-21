@@ -20,25 +20,18 @@ class Tree:
 		prefix = " "*self.get_level() * spacing + ("!-->") if self.get_level() != 0 else ""
 		print(prefix+ self.data)
 		for child in self.childs:
-			child.pretty_print(spacing)
+			child.pretty_print(spacing)		
 
-
-	def UserInput(self):
-		print("Enter the Root Element:")
-		string = input()
-		root = Tree(string)
-		current = 0
+	def custom(self):
 		lst = []
-
-
-
-		print("Enter the list of parents it has:")
+		print(f"Enter the list of parents {self.data} has:")
 		parent_list = input().split()
 		child_no = int(len(parent_list))
-		for child in parent_list:
-			lst.append(Tree(child))
-			print("Enter the list of parents it has:")	
-			lst[-1].add_child()
+		if child_no:
+			for index,child in enumerate(parent_list):
+				lst.append(Tree(child))
+				self.add_child(lst[(index)])
+				lst[(index)].custom()
 
 			
 def build_product():
@@ -60,5 +53,9 @@ def build_product():
 
 
 if __name__ == "__main__":
+
+	root = Tree(input("Enter the Name of the root node:"))
+	root.custom()
+	root.pretty_print(3)
 	root = build_product()
-	root.pretty_print(4)
+	root.pretty_print()
