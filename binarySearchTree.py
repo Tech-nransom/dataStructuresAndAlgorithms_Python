@@ -5,6 +5,7 @@ class BinaryTree:
 		self.right = None
 
 	def add_elements(self, data):
+
 	        if data == self.data:
 	            print("Ignore ",end="")
 	            return 
@@ -38,20 +39,18 @@ class BinaryTree:
 
 		if self.right:
 			elements += self.right.inorder()
-			
+
 		return elements
 
 	def find_min(self):
-
-		if self.left is None:
-			return self.data
-		return self.left.find_min()
+	        if self.left is None:
+	            return self.data
+	        return self.left.find_min()
 
 	def find_max(self):
-
-		if self.right is None:
-			return self.data
-		return self.right.find_max()
+	        if self.right is None:
+	            return self.data
+	        return self.right.find_max()
 
 
 	def search(self,data):
@@ -71,46 +70,48 @@ class BinaryTree:
 
 			else: return False
 
-	def deletion(self,data):
-
-		if data< self.data:
+	def delete(self, data):
+		if data < self.data:
 			if self.left:
-				self.left =self.left.deletion(data)
-		
-		elif data> self.data:
+				self.left = self.left.delete(data)
+
+		elif data > self.data:
 			if self.right:
-				self.right = self.right.deletion(data)
-
-
+				self.right = self.right.delete(data)
 		else:
 			if self.left is None and self.right is None:
 				return None
-			if self.left is None:
-				return self.right#.find_min()
+			elif self.left is None:
+				return self.right
 
-			if self.right is None:
-				return self.right#.find_max()
+			elif self.right is None:
+				return self.left
 
-			min_val = self.right.find_min()
-			self.data = min_val
-			self.right = self.right.deletion(min_val)
+			min_data = self.right.find_min()
+			self.data = min_data
+			self.right = self.right.delete(min_data)
 
+		return self
+
+
+
+	def list_to_Btree(self,lst):
+		print("Path-->",end="")
+		for num in lst:
+			self.add_elements(num)
+		print()
 
 
 
 if __name__ == "__main__":
-	numbers = [2,7,3,5,9,4,6,11,8]
-	root = BinaryTree(2)
-	print("Path--->",end="")
-	for num in numbers:
-		root.add_elements(num)
-	print()
+	numbers = [2,7,3,5,9,4,6,11,8,53,123,66]
+	root = BinaryTree(9)
+	root.list_to_Btree(numbers)
 	print("Inorder->",str(root.inorder()))
-	root.deletion(4)
+	num = 7
+	root.delete(num)
+	print(f"After deleting {num}")
 	print("Inorder->",str(root.inorder()))
-	# print("Inorder->",str(root.inorder()))
-	# print("Inorder->",str(root.inorder()))
-	# print("Inorder->",str(root.inorder()))
 	print("Find Min-->",str(root.find_min()))
 	print(root.search(0))
 	print("Find Max-->",str(root.find_max()))
